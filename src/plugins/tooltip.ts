@@ -37,9 +37,6 @@ export class Tooltip {
 .item {
     user-select: none;
 }
-.out-of-range.item {
-    display: none;
-}
 td {
     padding: 0px 5px;
 }
@@ -64,6 +61,9 @@ td {
 }
 .x-not-aligned .value {
     opacity: 0.4;
+}
+.out-of-range.item {
+    display: none;
 }
 `;
         legendRoot.appendChild(style);
@@ -124,7 +124,6 @@ td {
 
             const xFormatter = options.xFormatter;
             this.xItem.value.textContent = xFormatter(displayingX!);
-
             for (const s of chart.options.series) {
                 if (!s.visible)
                     continue;

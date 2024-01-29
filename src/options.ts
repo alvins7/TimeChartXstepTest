@@ -25,7 +25,7 @@ export interface ResolvedZoomOptions {
 }
 
 interface ScaleBase {
-    (x: number | {valueOf(): number}): number;
+    (x: number | { valueOf(): number }): number;
     domain(): number[] | Date[];
     range(): number[];
     copy(): this;
@@ -77,7 +77,7 @@ export type NoPlugin = Readonly<Record<string, never>>;
 
 export type TimeChartOptions<TPlugins extends TimeChartPlugins> =
     TimeChartOptionsBase &
-    (NoPlugin extends TPlugins ? {plugins?: Record<string, never>} : {plugins: TPlugins});
+    (NoPlugin extends TPlugins ? { plugins?: Record<string, never> } : { plugins: TPlugins });
 
 export interface TimeChartOptionsBase extends Partial<TimeChartRenderOptions> {
     series?: Partial<TimeChartSeriesOptions>[];
@@ -119,6 +119,18 @@ export interface TimeChartSeriesOptions {
      * @see xStep
      */
     xStepCorrection: boolean;
+    /**
+     * The main series,if it is a topic series split into multiple series.
+     * Legends or others will use the series options where the mainSeries attribute is set to true.
+     * Only one of the multiple series can be the main series.
+     * @default false
+     */
+    mainSeries: boolean;
+    /**
+     * The type of the series,if it is a topic series split to multiple series.
+     * All series within the same topic should be assigned the same type.
+     */
+    type: string;
 }
 
 export function resolveColorRGBA(color: ColorSpecifier): [number, number, number, number] {

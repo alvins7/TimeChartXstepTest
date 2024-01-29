@@ -26,12 +26,29 @@
     <script src="./data.js"></script>
     <script>
         const el = document.getElementById('chart');
+        let curSeries = null;
+        let curSeries1 = null;
+        const series = [];
+        let lastX = -Infinity;
+        let i = 0;
+        // data=data.
+        for (const d of data) {
+            if (d.x - lastX > 10) {
+                if (curSeries) {
+                    series.push(curSeries);
+                    series.push(curSeries1);
+                }
+                curSeries = { name: `RunTest`, color: 'blue', type: "test", mainSeries: i == 0, data: [], xStep: 0.0032 };
+                curSeries1 = { name: `RunTest1`, color: 'green', type: "test1", isLegend: i == 0, data: [], xStep: 0.0032 };
+            }
+            curSeries.data.push(d);
+            curSeries1.data.push(d);
+            lastX = d.x;
+            i++;
+        }
         const chart = new TimeChart(el, {
             baseTime: 9599,
-            series: [
-                // { name: 'Line 1', data: data1, color: 'blue' },
-                { name: 'Line 1', data: data, color: 'blue', xStep: 0.032, xStepCorrection: true },
-            ],
+            series,
             zoom: { x: { autoRange: true, minDomainExtent: 0.1, } },
             tooltip: {
                 enabled: true,

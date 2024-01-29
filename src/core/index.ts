@@ -38,7 +38,7 @@ const defaultSeriesOptions = {
     visible: true,
     lineType: LineType.Line,
     stepLocation: 1.,
-
+    mainSeries: false,
     xStep: 0,
     xStepCorrection: true,
 } as const;
@@ -62,7 +62,7 @@ function completeOptions(el: Element, options?: TimeChartOptionsBase): ResolvedC
     return o as ResolvedCoreOptions;
 }
 
-export default class TimeChart<TPlugins extends TimeChartPlugins=NoPlugin> {
+export default class TimeChart<TPlugins extends TimeChartPlugins = NoPlugin> {
     protected readonly _options: ResolvedCoreOptions;
     get options() { return this._options; }
 

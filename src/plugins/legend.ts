@@ -59,6 +59,9 @@ export class Legend {
             return;
 
         for (const s of this.options.series) {
+            if (!s.mainSeries) {
+                continue
+            }
             if (!this.items.has(s)) {
                 const item = document.createElement('div');
                 item.className = 'item';
@@ -75,7 +78,7 @@ export class Legend {
                     this.model.update();
                 })
 
-                this.items.set(s, {item, example});
+                this.items.set(s, { item, example });
             }
             const item = this.items.get(s)!;
             item.item.classList.toggle('visible', s.visible);
